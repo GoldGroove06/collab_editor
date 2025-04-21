@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "@radui/ui/themes/default.css";
 import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }) {
