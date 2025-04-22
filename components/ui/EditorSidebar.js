@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Avatar from "@radui/ui/Avatar"
-import { Copy, Info, Users, Code } from "lucide-react";
+import { Copy, Info, Users, Code, User } from "lucide-react";
 import Accordion from "@radui/ui/Accordion";
 
 
@@ -28,20 +28,28 @@ function EditorSidebar({username, roomId, users}) {
         <div
         onMouseEnter={() =>mouseHandler(false)}
       onMouseLeave={() => mouseHandler(true)}
-       className="flex flex-col w-10 hover:w-64 bg-gray-800 shadow-2xl rounded-tr-lg rounded-br-lg transition-all duration-300 ease-in-out">
-        <Code /> {isHovering ?  "" :<span className="ml-2">Collab</span> }
+       className="flex flex-col w-10 hover:w-64 bg-[#272627] shadow-2xl rounded-tr-lg rounded-br-lg transition-all duration-300 ease-in-out border-[#404141] border-r-2 text-[#dddcdd]">
+       
 
         {isHovering ?
-        <div>
-
+        <div className='ml-2 space-y-4 mt-4'>
+        <Code />    
         <Info />
         <Users/>
         </div>
             :
-        <Accordion.Root >
+        <>
+        <span className="ml-2 flex items-center mt-4">
+            <Code /><span className='ml-1'>Collab</span>
+  </span>
+        <Accordion.Root 
+        customRootClass="bg-[#272627] space-y-4"
+        >
             <Accordion.Item value={`item-1`}>
                 <Accordion.Header>
-                    <Accordion.Trigger index={`1`}> <Info /> <span className="ml-2 hover:pl-2">Room Info</span></Accordion.Trigger>
+                    <Accordion.Trigger index={`1`}> <span className="ml-2 flex items-center">
+            <Info /><span className='ml-1 hover:pl-1'>Room Info</span>
+  </span></Accordion.Trigger>
                 </Accordion.Header>
                 <Accordion.Content index={`1`}>
                 <div className="space-y-4">
@@ -69,7 +77,11 @@ function EditorSidebar({username, roomId, users}) {
 
             <Accordion.Item value={`item-2`}>
                 <Accordion.Header>
-                    <Accordion.Trigger index={`2`}><span className="ml-2 hover:pl-2 inline"><Users/>Participants</span></Accordion.Trigger>
+                    <Accordion.Trigger index={`2`}> 
+                        <span className="ml-2 flex items-center">
+            <Users /><span className='ml-1 hover:pl-1'>Participants</span>
+  </span>
+  </Accordion.Trigger>
                 </Accordion.Header>
                 <Accordion.Content index={`2`}>
                 <div className="space-y-3">
@@ -85,10 +97,12 @@ function EditorSidebar({username, roomId, users}) {
 
             </Accordion.Item>
         </Accordion.Root>
+        </>
+        
 }
             
 
-               <div className='mt-auto'><Avatar src="https://i.pravatar.cc/1000" /> {!isHovering && <span className="ml-2 hover:pl-2">{username}</span>}</div>
+               <div className='mt-auto flex flex-row mb-2'><Avatar src="https://i.pravatar.cc/1000" /> {!isHovering && <span className="ml-2 hover:pl-2">{username}</span>}</div>
             </div>
     );
 }
