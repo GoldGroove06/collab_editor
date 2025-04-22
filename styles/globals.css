@@ -2,6 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+.box {
+  background-color: rgba(95, 158, 160, 0.853);
+  font-weight: 600;
+  font-size: larger;
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  will-change: transform;
+}
+
+/* On hover: scale and give it a soft glow */
+.box:hover {
+  transform: scale(1.04);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.grid{
+ 
+  width: 1175px;
+  display: grid;
+  grid-template-columns: 225px 225px 225px 225px 225px;
+  grid-template-rows: 225px 225px;
+  gap: 1em;
+  grid-template-areas: 
+  "box-1 box-2 box-2 box-3"
+  "box-1 box-4 box-5 box-5" ;
+}
+
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%); /* Start off-screen on the left */
+  }
+  to {
+    transform: translateX(0); /* End at its normal position */
+  }
+}
+
+/* Apply the animation to your text */
+.silding-text {
+  display: inline-block;
+  animation: slideIn 1s ease-out;
+}
 
 
 @layer base {

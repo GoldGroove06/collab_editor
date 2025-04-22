@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
-
+import { SegmentedControl } from "@radix-ui/themes";
 import EditorSidebar from "../../components/ui/EditorSidebar";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 
@@ -39,6 +39,15 @@ export default function EditorPage() {
 
             {/* Editor Section (Right Side) */}
             <div className="m-auto w-4/5 p-6 rounded-tl-lg bg-[#161716]">
+            <div className="flex flex-row justify-between  float-right">
+
+                
+                <SegmentedControl.Root defaultValue="vs-dark" value={theme} onValueChange={setTheme}>
+	<SegmentedControl.Item value="vs-dark">Dark</SegmentedControl.Item>
+	<SegmentedControl.Item value="vs-light">Light</SegmentedControl.Item>
+
+</SegmentedControl.Root>  
+</div>   
             <div className="flex flex-row justify-between">
             <ToggleGroup
                 
@@ -69,7 +78,8 @@ export default function EditorPage() {
                    className="hover:bg-black-700 rounded-full"
                 >Java </ToggleGroupItem>
                 </ToggleGroup>
-                </div>                
+                </div>  
+                         
                  <Editor
                     height={"80vh"}
                     width="100%"
