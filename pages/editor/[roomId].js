@@ -4,7 +4,8 @@ import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 
 import EditorSidebar from "../../components/ui/EditorSidebar";
-import ToggleGroup from "@radui/ui/ToggleGroup";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+
 
 
 
@@ -19,6 +20,7 @@ export default function EditorPage() {
     const [language, setLanguage] = useState("javascript");
     const [theme, setTheme] = useState("vs-dark");
     const [activeSection, setActiveSection] = useState("roomInfo");
+    const [value, setValue] = useState("left");
 
     useEffect(() => {
         if (!roomId || !username) return;
@@ -30,10 +32,7 @@ export default function EditorPage() {
         return () => socket.disconnect();
     }, [roomId, username]);
 
-    const handleChange = (newPressed) => {
-        console.log(newPressed)
-      }
-
+   
     return (
         <div className="flex flex-row"> {/* Added h-screen for full height */}
             {/* Sidebar Navigation */}
@@ -122,34 +121,38 @@ export default function EditorPage() {
             </div> */}
 
             {/* Editor Section (Right Side) */}
-            <div className="w-full p-6 rounded-tl-lg bg-gray-900">
-            <ToggleGroup.Root
-                defaultPressed={false} 
-                onChange={handleChange} 
-                type="single" 
+            <div className=" p-6 rounded-tl-lg bg-gray-900">
+            <ToggleGroup
                 
+                type="single" 
+                value={language}
+			onValueChange={(value) => {
+				if (value) setLanguage(value);
+			}}
+               
                 >
-                <ToggleGroup.Item 
-                    value="c++"
-                    
-                >C++ </ToggleGroup.Item>
-                <ToggleGroup.Item 
+                <ToggleGroupItem 
+                    value="cpp"
+                    className="hover:bg-gray-700 rounded-full"
+                   
+                >C++</ToggleGroupItem>
+                <ToggleGroupItem 
                     value="javascript"
-                   
-                >javascript </ToggleGroup.Item>
-                <ToggleGroup.Item 
+                   className="hover:bg-gray-700 rounded-full"
+                >javascript </ToggleGroupItem>
+                <ToggleGroupItem 
                     value="python"
-                   
-                >Python </ToggleGroup.Item>
+                   className="hover:bg-gray-700 rounded-full"
+                >Python </ToggleGroupItem>
 
-                <ToggleGroup.Item 
+                <ToggleGroupItem 
                     value="java"
-                   
-                >Java </ToggleGroup.Item>
-                </ToggleGroup.Root>                
+                   className="hover:bg-gray-700 rounded-full"
+                >Java </ToggleGroupItem>
+                </ToggleGroup>                
                  <Editor
                     height="85vh"
-                    width="100%"
+                    width="80%"
                     language={language}
                     theme={theme}
                     value={code}

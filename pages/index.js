@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
+import { Code } from "lucide-react";
 
 export default function Home() {
     const [roomId, setRoomId] = useState("");
@@ -42,7 +43,11 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Collaborative Code Editor</h1>
+            <h1> <Code/> Collaborative Code Editor</h1>
+            
+            <button onClick={joinRoom}>Join Room</button>
+            <button onClick={generateRoomId}>Create Room</button>
+            <div>
             <input
                 placeholder="Username"
                 value={username}
@@ -53,8 +58,7 @@ export default function Home() {
                 value={roomId}
                 onChange={(e) => setRoomId(e.target.value)}
             />
-            <button onClick={joinRoom}>Join Room</button>
-            <button onClick={generateRoomId}>Create Room</button>
+            </div>
         </div>
     );
 }

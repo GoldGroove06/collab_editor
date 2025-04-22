@@ -17,24 +17,31 @@ function EditorSidebar({username, roomId, users}) {
 
    
 
-    const mouseHandler = () => {
-        const newHoverState = !isHovering;
-        setIsHovering(newHoverState);
+    const mouseHandler = (state) => {
+    
+        setIsHovering(state);
         
         
     }
 
     return (
         <div
-        onMouseEnter={mouseHandler}
-      onMouseLeave={mouseHandler}
-       className="flex flex-col w-10 hover:w-1/5 bg-gray-800 shadow-2xl rounded-tr-lg rounded-br-lg transition-all duration-300 ease-in-out">
-        <Code /> {isHovering && <span className="ml-2">Collab</span>}
+        onMouseEnter={() =>mouseHandler(false)}
+      onMouseLeave={() => mouseHandler(true)}
+       className="flex flex-col w-10 hover:w-64 bg-gray-800 shadow-2xl rounded-tr-lg rounded-br-lg transition-all duration-300 ease-in-out">
+        <Code /> {isHovering ?  "" :<span className="ml-2">Collab</span> }
 
+        {isHovering ?
+        <div>
+
+        <Info />
+        <Users/>
+        </div>
+            :
         <Accordion.Root >
             <Accordion.Item value={`item-1`}>
                 <Accordion.Header>
-                    <Accordion.Trigger index={`1`}> <Info /> {isHovering && <span className="ml-2 hover:pl-2">Room Info</span>}</Accordion.Trigger>
+                    <Accordion.Trigger index={`1`}> <Info /> <span className="ml-2 hover:pl-2">Room Info</span></Accordion.Trigger>
                 </Accordion.Header>
                 <Accordion.Content index={`1`}>
                 <div className="space-y-4">
@@ -62,7 +69,7 @@ function EditorSidebar({username, roomId, users}) {
 
             <Accordion.Item value={`item-2`}>
                 <Accordion.Header>
-                    <Accordion.Trigger index={`2`}> <Users /> {isHovering && <span className="ml-2 hover:pl-2">Participants</span>}</Accordion.Trigger>
+                    <Accordion.Trigger index={`2`}><span className="ml-2 hover:pl-2 inline"><Users/>Participants</span></Accordion.Trigger>
                 </Accordion.Header>
                 <Accordion.Content index={`2`}>
                 <div className="space-y-3">
@@ -78,51 +85,10 @@ function EditorSidebar({username, roomId, users}) {
 
             </Accordion.Item>
         </Accordion.Root>
-            {/* <button
-                        className={`w-full p-3 rounded-lg text-left ${activeSection === "roomInfo" ? "bg-gray-700" : "hover:bg-gray-700"}`}
-                        onClick={() => setActiveSection("roomInfo")}
-                    >
-                        <Info /> {isHovering && <span className="ml-2 hover:pl-2">Room Info</span>}
-                    </button>
-                    <button
-                        className={` inline	p-3 rounded-lg text-left ${activeSection === "participants" ? "bg-gray-700" : "hover:bg-gray-700"}`}
-                        onClick={() => setActiveSection("participants")}
-                    >
-                        <Users /> {isHovering && <span className="ml-2 hover:pl-2">Participants</span>}
-                    </button>
+}
+            
 
-                    <div className="mt-4">
-                    {activeSection === "roomInfo" && (
-                        <div className="space-y-4">
-                            <div className="relative transform-style-3d perspective-1000">
-                                <h2 className="text-lg font-bold">Username</h2>
-                                <span className="text-sm text-gray-300 bg-gray-600 px-2 py-1 rounded-lg shadow-md transform-3d rotate-x-10 hover:rotate-x-0 transition-transform duration-300">
-                                    {username}
-                                </span>
-                            </div>
-                            <div className="relative transform-style-3d perspective-1000">
-                                <h2 className="text-lg font-bold">Room ID</h2>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm text-gray-300 bg-gray-600 px-2 py-1 rounded-lg shadow-md transform-3d rotate-y-10 hover:rotate-y-0 transition-transform duration-300">
-                                        {roomId}
-                                    </span>
-                                    <button onClick={copyRoomId} className="p-2 bg-blue-500 rounded-full hover:bg-blue-400 transition">
-                                        <Copy size={16} />
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {activeSection === "participants" && (
-                        
-                    )} */}
-
-                    
-                    
-                {/* </div> */}
-
-               <Avatar src="https://i.pravatar.cc/1000" /> 
+               <div className='mt-auto'><Avatar src="https://i.pravatar.cc/1000" /> {!isHovering && <span className="ml-2 hover:pl-2">{username}</span>}</div>
             </div>
     );
 }
