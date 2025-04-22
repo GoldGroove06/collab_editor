@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 .box {
-  background-color: rgba(95, 158, 160, 0.853);
+  background: linear-gradient(135deg, #998cf0, #f08cd4);
+
   font-weight: 600;
   font-size: larger;
   padding: 20px;
@@ -21,7 +22,6 @@
 
 .grid{
  
-  width: 1175px;
   display: grid;
   grid-template-columns: 225px 225px 225px 225px 225px;
   grid-template-rows: 225px 225px;

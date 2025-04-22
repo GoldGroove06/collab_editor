@@ -16,6 +16,8 @@ export default function Home() {
     const [roomId, setRoomId] = useState("");
     const [username, setUsername] = useState("");
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errorColor, setErrorColor] = useState("red");    
     const router = useRouter();
 
     const generateRoomId = () => {
@@ -24,7 +26,8 @@ export default function Home() {
 
         if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
             navigator.clipboard.writeText(newRoomId)
-                .then(() => alert("Room ID copied to clipboard!"))
+                .then(() => {setErrorMessage("Room ID copied to clipboard!");setErrorColor("green"); setError(true)})
+
                 .catch(() => alert("Copy manually: " + newRoomId));
         } else {
             // Fallback for unsupported browsers
@@ -46,10 +49,9 @@ export default function Home() {
         if (roomId && username) {
             router.push(`/editor/${roomId}?username=${username}`);
         } else {
+            setErrorColor("red");
+            setErrorMessage("Please enter a room ID and username.");
             setError(true);
-            setTimeout(() => {
-                setError(false);
-            }, 3000); // Hide the error after 3 seconds
         }
     };
 
@@ -78,22 +80,23 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="text-gray-500 bg-[#272627] flex text-3xl text pt-8 flex-col  justify-center items-center">
-
-                <div className="flex flex-row space-x-32">
-                    <div>CPP</div>
-                    <div>JavaScript</div>
-                    <div>Python</div>
-                    <div>Java</div>
-
-                </div>
-                <hr className="border-gray-500 bg-[#272627] mt-8 w-[80%] mx-auto" />
-            </div>
-            <div className=" p-8 bg-[#272627]">
+            
+            <div className=" p-8  flex justify-center items-center">
             <Grid/>
             </div>
+            <div className="flex flex-col justify-center items-center space-y-4">
+
             
-            <div className="text-white bg-[#272627] flex flex-row justify-center space-x-16 pb-4">
+            {error && <Callout.Root color={errorColor}>
+		<Callout.Icon>
+			<InfoCircledIcon />
+		</Callout.Icon>
+		<Callout.Text>
+			{errorMessage}
+		</Callout.Text>
+	</Callout.Root>}
+    </div>
+            <div className="text-white  flex flex-row justify-center space-x-16 pb-16">
             
                 <div className="text-3xl ">
                     <br></br>
@@ -101,17 +104,9 @@ export default function Home() {
                     No <Em>Signups</Em>. No <Em>installs</Em>.<br />
                     Click <Em>Start</Em> to launch your session.<br />
                 </div>
-                <div className="space-y-4 space-x-4">
+                <div className="space-y-4 space-x-4" id="start-id">
         <br></br>
-        {error && <Callout.Root color="green">
-		<Callout.Icon>
-			<InfoCircledIcon />
-		</Callout.Icon>
-		<Callout.Text>
-			You will need  to install and access
-			this application.
-		</Callout.Text>
-	</Callout.Root>}
+        
                     <TextField.Root placeholder="Room ID"
                         value={roomId}
                         onChange={(e) => setRoomId(e.target.value)}
