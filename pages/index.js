@@ -64,19 +64,19 @@ export default function Home() {
 
                 <div className="flex flex-col ml-16 justify-center h-screen ">
 
-                    <div className="text-7xl font-serif font-extrabold scale-100      text-white">
+                    <div id="main-text" className="text-7xl font-serif font-extrabold scale-100">
                         Collab Code Editor
-
-                    </div>
-
-
-                    <div className="text-xl">
-                        A lightweight collaborative code editor that lets you write and share code in real time.
+                        <div className="text-xl">
+                        A lightweight code editor for real-time collaboration and sharing.
 
                     </div>
                     <div className="text-xl">
-                        No setup, no clutter — just code with your team, effortlessly.
+                        No setup, no clutter just code with your team, effortlessly.
                     </div>
+                    </div>
+
+
+                    
                 </div>
             </div>
 
